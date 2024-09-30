@@ -28,7 +28,7 @@ export type TAdmin = {
   bloogGroup?: TBloodGroup;
   presentAddress?: string;
   permanentAddress?: string;
-  profileImg?: string;
+  profilePicture?: string;
   isDeleted?: boolean;
 };
 

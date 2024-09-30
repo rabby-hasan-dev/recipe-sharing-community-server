@@ -60,7 +60,7 @@ const adminSchema = new Schema<TAdmin, AdminModel>(
     permanentAddress: {
       type: String,
     },
-    profileImg: { type: String, default: '' },
+    profilePicture: { type: String, default: '' },
     isDeleted: {
       type: Boolean,
       default: false,

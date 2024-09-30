@@ -163,9 +163,9 @@ const refreshToken = async (token: string) => {
   };
 };
 
-const forgetPassword = async (userId: string) => {
+const forgetPassword = async (userEmail: string) => {
   // checking if the user is exist
-  const user = await User.isUserExistsByEmail(userId);
+  const user = await User.isUserExistsByEmail(userEmail);
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');

@@ -21,6 +21,7 @@ const createAdmin = catchAsync(async (req, res) => {
   const data = req.body;
   const file = req.file;
 
+
   const result = await UserRegisterServices.createAdminIntoDB(file!, data);
 
   sendResponse(res, {

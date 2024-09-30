@@ -84,7 +84,7 @@ const createAdminIntoDB = async (file: TImageFile, payload: TUser) => {
       user,
       username: payload?.username,
       email: payload?.email,
-      profilePicture: file.path,
+      profilePicture: file?.path,
     };
 
     // create a student (transaction-2)

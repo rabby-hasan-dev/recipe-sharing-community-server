@@ -7,10 +7,10 @@ import { updateUserValidationSchema } from './userProfile.validation';
 
 const router = express.Router();
 
+router.get('/me', UserProfileControllers.getAllUsers);
+
 router.get('/', UserProfileControllers.getAllUsers);
-
 router.get('/:id', UserProfileControllers.getSingleUser);
-
 router.patch(
   '/:id',
   validateRequest(updateUserValidationSchema),
