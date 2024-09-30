@@ -9,13 +9,12 @@ export interface TUser {
   needsPasswordChange: boolean;
   passwordChangedAt?: Date;
   role: 'superAdmin' | 'admin' | 'user';
-  isVerified?:string;
-  status: 'in-progress'|'active' | 'blocked';
+  isVerified?: string;
+  status: 'in-progress' | 'active' | 'blocked';
   isDeleted: boolean;
 }
 
 export interface UserModel extends Model<TUser> {
-
   //instance methods for checking if the user exist
   isUserExistsByEmail(email: string): Promise<TUser>;
 
@@ -24,7 +23,7 @@ export interface UserModel extends Model<TUser> {
     plainTextPassword: string,
     hashedPassword: string,
   ): Promise<boolean>;
-  
+
   isJWTIssuedBeforePasswordChanged(
     passwordChangedTimestamp: Date,
     jwtIssuedTimestamp: number,

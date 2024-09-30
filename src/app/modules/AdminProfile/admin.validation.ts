@@ -12,7 +12,7 @@ export const createAdminValidationSchema = z.object({
     password: z.string().max(20).optional(),
     admin: z.object({
       designation: z.string(),
-      userName:z.string({required_error:"User Name is must be required"}),
+      userName: z.string({ required_error: 'User Name is must be required' }),
       name: createUserNameValidationSchema,
       gender: z.enum([...Gender] as [string, ...string[]]),
       dateOfBirth: z.string().optional(),
@@ -36,7 +36,7 @@ const updateUserNameValidationSchema = z.object({
 export const updateAdminValidationSchema = z.object({
   body: z.object({
     admin: z.object({
-      userName:z.string().optional(),
+      userName: z.string().optional(),
       name: updateUserNameValidationSchema,
       designation: z.string().max(30).optional(),
       gender: z.enum([...Gender] as [string, ...string[]]).optional(),

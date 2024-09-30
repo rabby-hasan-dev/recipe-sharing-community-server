@@ -4,9 +4,10 @@ import sendResponse from '../../utils/sendResponse';
 import { UserRegisterServices } from './user.service';
 
 const createUser = catchAsync(async (req, res) => {
-  // const { file, data } = req.body;
+  const data = req.body;
+  const file = req.file;
 
-  const result = await UserRegisterServices.createUserIntoDB(req.body);
+  const result = await UserRegisterServices.createUserIntoDB(file!, data);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -16,13 +17,11 @@ const createUser = catchAsync(async (req, res) => {
   });
 });
 
-
-
 const createAdmin = catchAsync(async (req, res) => {
-  // const { file, data } = req.body;
+  const data = req.body;
+  const file = req.file;
 
-
-  const result = await UserRegisterServices.createAdminIntoDB(req.body);
+  const result = await UserRegisterServices.createAdminIntoDB(file!, data);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -32,10 +31,7 @@ const createAdmin = catchAsync(async (req, res) => {
   });
 });
 
-
-
 export const UserRegisterControllers = {
   createUser,
   createAdmin,
-
 };

@@ -37,14 +37,13 @@ const adminSchema = new Schema<TAdmin, AdminModel>(
         values: Gender,
         message: '{VALUE} is not a valid gender',
       },
-
     },
     dateOfBirth: { type: Date },
     email: {
       type: String,
       required: [true, 'Email is required'],
     },
-    contactNo: { type: String, },
+    contactNo: { type: String },
     emergencyContactNo: {
       type: String,
     },
@@ -57,7 +56,6 @@ const adminSchema = new Schema<TAdmin, AdminModel>(
     },
     presentAddress: {
       type: String,
-
     },
     permanentAddress: {
       type: String,
@@ -77,9 +75,7 @@ const adminSchema = new Schema<TAdmin, AdminModel>(
 
 // generating full name
 adminSchema.virtual('fullName').get(function () {
-  return (
-    this?.name?.firstName + '' + this?.name?.lastName
-  );
+  return this?.name?.firstName + '' + this?.name?.lastName;
 });
 
 // filter out deleted documents

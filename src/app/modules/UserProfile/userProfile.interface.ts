@@ -5,8 +5,6 @@ export type TUserName = {
   lastName: string;
 };
 
-
-
 export type TUserProfile = {
   user: Types.ObjectId;
   username: string;
@@ -25,9 +23,7 @@ export type TUserProfile = {
   permanentAddress?: string;
   bloogGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
   isDeleted?: boolean;
-}
-
-
+};
 
 //for creating static
 export interface UserProfileModel extends Model<TUserProfile> {

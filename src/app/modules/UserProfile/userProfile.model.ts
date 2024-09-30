@@ -20,83 +20,86 @@ const userNameSchema = new Schema<TUserName>({
   },
 });
 
-
-const UserProfileSchema = new Schema<TUserProfile, UserProfileModel>({
-  user: {
-    type: Schema.Types.ObjectId,
-    required: [true, 'User id is required'],
-    ref: 'User',
+const UserProfileSchema = new Schema<TUserProfile, UserProfileModel>(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      required: [true, 'User id is required'],
+      ref: 'User',
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: userNameSchema,
+    },
+    profilePicture: {
+      type: String,
+      default: '', // URL or path to the profile picture
+    },
+    bio: {
+      type: String,
+      default: '',
+    },
+    followers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'UserProfile',
+      },
+    ],
+    following: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'UserProfile',
+      },
+    ],
+    premiumMembership: {
+      type: Boolean,
+      default: false,
+    },
+    premiumExpiresAt: {
+      type: Date,
+      default: null,
+    },
+    gender: {
+      type: String,
+      enum: ['Male', 'Female', 'Other'],
+      default: 'Other',
+    },
+    dateOfBirth: {
+      type: Date,
+    },
+    bloogGroup: {
+      type: String,
+      enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+    },
+    contactNo: {
+      type: String,
+      trim: true,
+    },
+    presentAddress: {
+      type: String,
+      trim: true,
+    },
+    permanentAddress: {
+      type: String,
+      trim: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
-  username: {
-    type: String,
-    required: true,
+  {
+    toJSON: {
+      virtuals: true,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: userNameSchema,
-  },
-  profilePicture: {
-    type: String,
-    default: '', // URL or path to the profile picture
-  },
-  bio: {
-    type: String,
-    default: "",
-  },
-  followers: [{
-    type: Schema.Types.ObjectId,
-    ref: 'UserProfile',
-  }],
-  following: [{
-    type: Schema.Types.ObjectId,
-    ref: 'UserProfile',
-  }],
-  premiumMembership: {
-    type: Boolean,
-    default: false,
-  },
-  premiumExpiresAt: {
-    type: Date,
-    default: null,
-  },
-  gender: {
-    type: String,
-    enum: ['Male', 'Female', 'Other'],
-    default: 'Other',
-  },
-  dateOfBirth: {
-    type: Date,
-  },
-  bloogGroup: {
-    type: String,
-    enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
-  },
-  contactNo: {
-    type: String,
-    trim: true,
-  },
-  presentAddress: {
-    type: String,
-    trim: true,
-  },
-  permanentAddress: {
-    type: String,
-    trim: true,
-  },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
-
-}, {
-  toJSON: {
-    virtuals: true,
-  },
-},
-
 );
 
 // UserProfileSchema.pre('save', function (next) {
@@ -104,9 +107,8 @@ const UserProfileSchema = new Schema<TUserProfile, UserProfileModel>({
 //   next();
 // });
 
-
 UserProfileSchema.virtual('fullName').get(function () {
-  return this?.name?.firstName as string + this?.name?.lastName as string;
+  return ((this?.name?.firstName as string) + this?.name?.lastName) as string;
 });
 
 // Query Middleware
@@ -131,4 +133,7 @@ UserProfileSchema.statics.isUserExists = async function (id: string) {
   return existingUser;
 };
 
-export const UserProfile = model<TUserProfile, UserProfileModel>('UserProfile', UserProfileSchema);
+export const UserProfile = model<TUserProfile, UserProfileModel>(
+  'UserProfile',
+  UserProfileSchema,
+);

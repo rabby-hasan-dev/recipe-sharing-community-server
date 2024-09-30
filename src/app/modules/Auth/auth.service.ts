@@ -9,10 +9,8 @@ import { createToken, verifyToken } from './auth.utils';
 import { sendEmail } from '../../utils/sendEmail';
 
 const loginUser = async (payload: TLoginUser) => {
-
   // checking if the user is exist
   const user = await User.isUserExistsByEmail(payload?.email);
-
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
@@ -64,13 +62,10 @@ const loginUser = async (payload: TLoginUser) => {
   };
 };
 
-
 const changePassword = async (
   userData: JwtPayload,
   payload: { oldPassword: string; newPassword: string },
 ) => {
-
-
   // checking if the user is exist
   const user = await User.isUserExistsByEmail(userData.email);
 
@@ -168,7 +163,6 @@ const refreshToken = async (token: string) => {
   };
 };
 
-
 const forgetPassword = async (userId: string) => {
   // checking if the user is exist
   const user = await User.isUserExistsByEmail(userId);
@@ -208,7 +202,6 @@ const forgetPassword = async (userId: string) => {
   // console.log(resetUILink);
 };
 
-
 const resetPassword = async (
   payload: { email: string; newPassword: string },
   token: string,
@@ -241,7 +234,6 @@ const resetPassword = async (
   //localhost:3000?email=email&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJBLTAwMDEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDI4NTA2MTcsImV4cCI6MTcwMjg1MTIxN30.-T90nRaz8-KouKki1DkCSMAbsHyb9yDi0djZU3D6QO4
 
   if (payload.email !== decoded.email) {
-    console.log(payload.email, decoded.e);
     throw new AppError(httpStatus.FORBIDDEN, 'You are forbidden!');
   }
 

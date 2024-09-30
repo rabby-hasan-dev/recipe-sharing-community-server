@@ -7,12 +7,8 @@ import { TUserProfile } from './userProfile.interface';
 import { UserProfile } from './userProfile.model';
 import { User } from '../User/user.model';
 
-
-
 const getAllUsersFromDB = async (query: Record<string, unknown>) => {
-  const UserQuery = new QueryBuilder(
-    UserProfile.find()
-      .populate('User'), query,)
+  const UserQuery = new QueryBuilder(UserProfile.find().populate('User'), query)
     .search(UseSearchableFields)
     .filter()
     .sort()
@@ -28,8 +24,6 @@ const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-
-
 const getSingleUserFromDB = async (id: string) => {
   const result = await User.findById(id);
   return result;
@@ -41,7 +35,6 @@ const updateUserIntoDB = async (id: string, payload: Partial<TUserProfile>) => {
   const modifiedUpdatedData: Record<string, unknown> = {
     ...remainingUserData,
   };
-
 
   if (name && Object.keys(name).length) {
     for (const [key, value] of Object.entries(name)) {

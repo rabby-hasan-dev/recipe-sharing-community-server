@@ -53,8 +53,6 @@ const deleteUser = catchAsync(async (req, res) => {
   });
 });
 
-
-
 export const UserProfileControllers = {
   getAllUsers,
   getSingleUser,

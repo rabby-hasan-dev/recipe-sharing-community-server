@@ -7,27 +7,31 @@ const UserNameValidationSchema = z.object({
     .max(20)
     .refine((value) => /^[A-Z]/.test(value), {
       message: 'First Name must start with a capital letter',
-    }).optional(),
+    })
+    .optional(),
   lastName: z.string().optional(),
 });
 
-
-const userSchemavalidation = z.string({ required_error: 'userId is Require' }).refine(
-  (val) => /^[0-9a-fA-F]{24}$/.test(val), // Regular expression to check if it's a valid ObjectId format
-  {
-    message: "Invalid ObjectId format",
-  }
-)
-
-
+const userSchemavalidation = z
+  .string({ required_error: 'userId is Require' })
+  .refine(
+    (val) => /^[0-9a-fA-F]{24}$/.test(val), // Regular expression to check if it's a valid ObjectId format
+    {
+      message: 'Invalid ObjectId format',
+    },
+  );
 
 export const createUserValidationSchema = z.object({
   body: z.object({
     // password: z.string().max(20).optional(),
     user: z.object({
       user: userSchemavalidation,
-      username: z.string().min(1, "Username is required").trim(),
-      email: z.string().min(1, "Email is required").email("Invalid email format").trim(),
+      username: z.string().min(1, 'Username is required').trim(),
+      email: z
+        .string()
+        .min(1, 'Email is required')
+        .email('Invalid email format')
+        .trim(),
       name: UserNameValidationSchema.optional(), // If you want to make it required, remove the `.optional()`
       profilePicture: z.string().url().nullable().optional(), // Expecting URL or null
       bio: z.string().optional(),
@@ -36,24 +40,29 @@ export const createUserValidationSchema = z.object({
       premiumMembership: z.boolean().default(false),
       premiumExpiresAt: z.date().nullable().optional(),
       gender: z.enum(['Male', 'Female', 'Other']).default('Other'),
-      bloogGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']).optional(),
+      bloogGroup: z
+        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+        .optional(),
       dateOfBirth: z.date().optional(),
       contactNo: z.string().optional(),
       presentAddress: z.string().optional(),
       permanentAddress: z.string().optional(),
       isDeleted: z.boolean().default(false),
-    })
-  })
+    }),
+  }),
 });
-
-
 
 export const updateUserValidationSchema = z.object({
   body: z.object({
     user: z.object({
       user: userSchemavalidation.optional(),
-      username: z.string().min(1, "Username is required").trim().optional(),
-      email: z.string().min(1, "Email is required").email("Invalid email format").trim().optional(),
+      username: z.string().min(1, 'Username is required').trim().optional(),
+      email: z
+        .string()
+        .min(1, 'Email is required')
+        .email('Invalid email format')
+        .trim()
+        .optional(),
       name: UserNameValidationSchema.optional(), // If you want to make it required, remove the `.optional()`
       profilePicture: z.string().url().nullable().optional(), // Expecting URL or null
       bio: z.string().optional(),
@@ -62,13 +71,15 @@ export const updateUserValidationSchema = z.object({
       premiumMembership: z.boolean().default(false),
       premiumExpiresAt: z.date().nullable().optional(),
       gender: z.enum(['Male', 'Female', 'Other']).default('Other'),
-      bloogGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']).optional(),
+      bloogGroup: z
+        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+        .optional(),
       dateOfBirth: z.date().optional(),
       contactNo: z.string().optional(),
       presentAddress: z.string().optional(),
       permanentAddress: z.string().optional(),
       isDeleted: z.boolean().default(false),
-    })
+    }),
   }),
 });
 
