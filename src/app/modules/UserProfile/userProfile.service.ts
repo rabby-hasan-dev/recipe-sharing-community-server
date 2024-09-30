@@ -9,8 +9,6 @@ import { User } from '../User/user.model';
 
 
 
-
-
 const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(
     UserProfile.find()
