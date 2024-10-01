@@ -4,6 +4,7 @@ import { UserProfileRoutes } from '../modules/UserProfile/userProfile.route';
 import { AdminRoutes } from '../modules/AdminProfile/admin.route';
 import { AuthRoutes } from '../modules/Auth/auth.route';
 import { RecipeRoutes } from '../modules/Recipe/recipe.route';
+import { SocailConectivityRoutes } from '../modules/SocialConectivity/social.route';
 
 const router = Router();
 
@@ -36,10 +37,10 @@ const moduleRoutes = [
   //   path: '/feed',
   //   route: RecipeRoutes,
   // },
-  // {
-  //   path: '/social',
-  //   route: RecipeRoutes,
-  // },
+  {
+    path: '/social-conectivity',
+    route: SocailConectivityRoutes,
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

@@ -6,6 +6,52 @@ import { UseSearchableFields } from './userProfile.constant';
 import { TUserProfile } from './userProfile.interface';
 import { UserProfile } from './userProfile.model';
 import { User } from '../User/user.model';
+import { USER_ROLE } from '../User/user.constant';
+import { JwtPayload } from 'jsonwebtoken';
+
+
+
+const getMyProfileIntoDB = async (email: string, role: string) => {
+  let result = null;
+  if (role === USER_ROLE.user) {
+    result = await UserProfile.findOne({ email: email }).populate('user');
+  }
+  return result;
+};
+
+const updateMyProfileIntoDB = async (user: JwtPayload, payload: Partial<TUserProfile>) => {
+  const { email, role } = user;
+  const userExists = UserProfile.isUserExists(email);
+
+  if (!userExists) {
+    throw new AppError(httpStatus.UNAUTHORIZED, "User not Authorized")
+  }
+  if (role !== USER_ROLE.user) {
+    throw new AppError(httpStatus.UNAUTHORIZED, "User not Authorized")
+  }
+
+  const { name, ...remainingUserData } = payload;
+  const modifiedUpdatedData: Record<string, unknown> = {
+    ...remainingUserData,
+  };
+
+
+  if (name && Object.keys(name).length) {
+    for (const [key, value] of Object.entries(name)) {
+      modifiedUpdatedData[`name.${key}`] = value;
+    }
+  }
+
+  const result = await UserProfile.findOneAndUpdate({ email: email }, modifiedUpdatedData, { new: true, runValidators: true, })
+  return result;
+};
+
+
+
+const getSingleUserFromDB = async (id: string) => {
+  const result = await UserProfile.findById(id);
+  return result;
+};
 
 const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(UserProfile.find().populate('User'), query)
@@ -24,30 +70,6 @@ const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-const getSingleUserFromDB = async (id: string) => {
-  const result = await User.findById(id);
-  return result;
-};
-
-const updateUserIntoDB = async (id: string, payload: Partial<TUserProfile>) => {
-  const { name, ...remainingUserData } = payload;
-
-  const modifiedUpdatedData: Record<string, unknown> = {
-    ...remainingUserData,
-  };
-
-  if (name && Object.keys(name).length) {
-    for (const [key, value] of Object.entries(name)) {
-      modifiedUpdatedData[`name.${key}`] = value;
-    }
-  }
-
-  const result = await UserProfile.findByIdAndUpdate(id, modifiedUpdatedData, {
-    new: true,
-    runValidators: true,
-  });
-  return result;
-};
 
 const deleteUserFromDB = async (id: string) => {
   const session = await mongoose.startSession();
@@ -90,8 +112,9 @@ const deleteUserFromDB = async (id: string) => {
 };
 
 export const UserProfileServices = {
+  updateMyProfileIntoDB,
+  getMyProfileIntoDB,
   getAllUsersFromDB,
   getSingleUserFromDB,
-  updateUserIntoDB,
   deleteUserFromDB,
 };

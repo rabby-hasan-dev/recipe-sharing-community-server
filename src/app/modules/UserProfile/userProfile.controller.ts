@@ -4,6 +4,35 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { UserProfileServices } from './userProfile.service';
 
+
+const getMyProfile = catchAsync(async (req, res) => {
+  const { email, role } = req.user;
+  const result = await UserProfileServices.getMyProfileIntoDB(email, role);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My Update succesfully',
+    data: result,
+  });
+});
+
+const UpdateMyProfile = catchAsync(async (req, res) => {
+  const user = req.user;
+  const payload = req.body;
+  const result = await UserProfileServices.updateMyProfileIntoDB(user, payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My Profile Get succesfully',
+    data: result,
+  });
+});
+
+
+
+
 const getSingleUser = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await UserProfileServices.getSingleUserFromDB(id);
@@ -28,18 +57,7 @@ const getAllUsers: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-const updateUser = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const { User } = req.body;
-  const result = await UserProfileServices.updateUserIntoDB(id, User);
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'User is updated succesfully',
-    data: result,
-  });
-});
 
 const deleteUser = catchAsync(async (req, res) => {
   const { id } = req.params;
@@ -54,8 +72,9 @@ const deleteUser = catchAsync(async (req, res) => {
 });
 
 export const UserProfileControllers = {
+  UpdateMyProfile,
+  getMyProfile,
   getAllUsers,
   getSingleUser,
   deleteUser,
-  updateUser,
 };

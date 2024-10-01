@@ -102,13 +102,14 @@ const UserProfileSchema = new Schema<TUserProfile, UserProfileModel>(
   },
 );
 
+
 // UserProfileSchema.pre('save', function (next) {
 //   this.updatedAt = Date.now();
 //   next();
 // });
 
 UserProfileSchema.virtual('fullName').get(function () {
-  return ((this?.name?.firstName as string) + this?.name?.lastName) as string;
+  return ((this?.name?.firstName as string) + ' ' + this?.name?.lastName) as string;
 });
 
 // Query Middleware

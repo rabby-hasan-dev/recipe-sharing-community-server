@@ -23,64 +23,61 @@ const userSchemavalidation = z
 
 export const createUserValidationSchema = z.object({
   body: z.object({
-    // password: z.string().max(20).optional(),
-    user: z.object({
-      user: userSchemavalidation,
-      username: z.string().min(1, 'Username is required').trim(),
-      email: z
-        .string()
-        .min(1, 'Email is required')
-        .email('Invalid email format')
-        .trim(),
-      name: UserNameValidationSchema.optional(), // If you want to make it required, remove the `.optional()`
-      profilePicture: z.string().url().nullable().optional(), // Expecting URL or null
-      bio: z.string().optional(),
-      followers: z.array(z.string()).optional(), // Array of ObjectId strings
-      following: z.array(z.string()).optional(),
-      premiumMembership: z.boolean().default(false),
-      premiumExpiresAt: z.date().nullable().optional(),
-      gender: z.enum(['Male', 'Female', 'Other']).default('Other'),
-      bloogGroup: z
-        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-        .optional(),
-      dateOfBirth: z.date().optional(),
-      contactNo: z.string().optional(),
-      presentAddress: z.string().optional(),
-      permanentAddress: z.string().optional(),
-      isDeleted: z.boolean().default(false),
-    }),
+    user: userSchemavalidation,
+    username: z.string().min(1, 'Username is required').trim(),
+    email: z
+      .string()
+      .min(1, 'Email is required')
+      .email('Invalid email format')
+      .trim(),
+    name: UserNameValidationSchema.optional(), // If you want to make it required, remove the `.optional()`
+    profilePicture: z.string().url().nullable().optional(), // Expecting URL or null
+    bio: z.string().optional(),
+    followers: z.array(z.string()).optional(), // Array of ObjectId strings
+    following: z.array(z.string()).optional(),
+    premiumMembership: z.boolean().default(false),
+    premiumExpiresAt: z.date().nullable().optional(),
+    gender: z.enum(['Male', 'Female', 'Other']).default('Other'),
+    bloogGroup: z
+      .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+      .optional(),
+    dateOfBirth: z.date().optional(),
+    contactNo: z.string().optional(),
+    presentAddress: z.string().optional(),
+    permanentAddress: z.string().optional(),
+    isDeleted: z.boolean().default(false),
   }),
+
 });
 
 export const updateUserValidationSchema = z.object({
   body: z.object({
-    user: z.object({
-      user: userSchemavalidation.optional(),
-      username: z.string().min(1, 'Username is required').trim().optional(),
-      email: z
-        .string()
-        .min(1, 'Email is required')
-        .email('Invalid email format')
-        .trim()
-        .optional(),
-      name: UserNameValidationSchema.optional(), // If you want to make it required, remove the `.optional()`
-      profilePicture: z.string().url().nullable().optional(), // Expecting URL or null
-      bio: z.string().optional(),
-      followers: z.array(z.string()).optional(), // Array of ObjectId strings
-      following: z.array(z.string()).optional(),
-      premiumMembership: z.boolean().default(false),
-      premiumExpiresAt: z.date().nullable().optional(),
-      gender: z.enum(['Male', 'Female', 'Other']).default('Other'),
-      bloogGroup: z
-        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-        .optional(),
-      dateOfBirth: z.date().optional(),
-      contactNo: z.string().optional(),
-      presentAddress: z.string().optional(),
-      permanentAddress: z.string().optional(),
-      isDeleted: z.boolean().default(false),
-    }),
+    user: userSchemavalidation.optional(),
+    username: z.string().min(1, 'Username is required').trim().optional(),
+    email: z
+      .string()
+      .min(1, 'Email is required')
+      .email('Invalid email format')
+      .trim()
+      .optional(),
+    name: UserNameValidationSchema.optional(), // If you want to make it required, remove the `.optional()`
+    profilePicture: z.string().url().nullable().optional(), // Expecting URL or null
+    bio: z.string().optional(),
+    followers: z.array(z.string()).optional(), // Array of ObjectId strings
+    following: z.array(z.string()).optional(),
+    premiumMembership: z.boolean().default(false),
+    premiumExpiresAt: z.date().nullable().optional(),
+    gender: z.enum(['Male', 'Female', 'Other']).default('Other'),
+    bloogGroup: z
+      .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+      .optional(),
+    dateOfBirth: z.date().optional(),
+    contactNo: z.string().optional(),
+    presentAddress: z.string().optional(),
+    permanentAddress: z.string().optional(),
+    isDeleted: z.boolean().default(false),
   }),
+
 });
 
 export const studentValidations = {
