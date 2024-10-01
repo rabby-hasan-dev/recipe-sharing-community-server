@@ -32,17 +32,17 @@ const RecipeSchema = new Schema<IRecipe, RecipeModel>(
       required: [true, 'Author is required'],
     },
     ratings: [
-      {
-        user: {
-          type: Schema.Types.ObjectId,
-          ref: 'User',
-        },
-        rating: {
-          type: Number,
-          min: 1,
-          max: 5,
-        },
-      },
+      // {
+      //   user: {
+      //     type: Schema.Types.ObjectId,
+      //     ref: 'User',
+      //   },
+      //   rating: {
+      //     type: Number,
+      //     min: 1,
+      //     max: 5,
+      //   },
+      // },
     ],
     averageRating: {
       type: Number,
@@ -61,20 +61,20 @@ const RecipeSchema = new Schema<IRecipe, RecipeModel>(
       },
     ],
     comments: [
-      {
-        user: {
-          type: Schema.Types.ObjectId,
-          ref: 'User', // Reference to User who commented
-        },
-        comment: {
-          type: String,
-          required: [true, 'Comment text is required'],
-        },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
+      // {
+      //   user: {
+      //     type: Schema.Types.ObjectId,
+      //     ref: 'User', // Reference to User who commented
+      //   },
+      //   comment: {
+      //     type: String,
+      //     required: [true, 'Comment text is required'],
+      //   },
+      //   createdAt: {
+      //     type: Date,
+      //     default: Date.now,
+      //   },
+      // },
     ],
     isPremium: {
       type: Boolean,

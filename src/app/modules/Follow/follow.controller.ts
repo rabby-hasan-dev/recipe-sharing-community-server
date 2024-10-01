@@ -36,9 +36,9 @@ const unfollowUser = catchAsync(async (req, res) => {
 });
 
 const getFollowerCount = catchAsync(async (req, res) => {
-  const { recipeId } = req.params;
+  const { userId } = req.params;
 
-  const result = await followServices.getFollowerCountFromDB(recipeId);
+  const result = await followServices.getFollowerCountFromDB(userId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -48,9 +48,9 @@ const getFollowerCount = catchAsync(async (req, res) => {
   });
 });
 const getFollowingCount = catchAsync(async (req, res) => {
-  const { recipeId } = req.params;
+  const { userId } = req.params;
 
-  const result = await followServices.getFollowingCountFromDB(recipeId);
+  const result = await followServices.getFollowingCountFromDB(userId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

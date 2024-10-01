@@ -54,7 +54,7 @@ const UnfollowUserIntoDB = async (userEmail: any, userToUnfollowId: any) => {
     throw new AppError(httpStatus.UNAUTHORIZED, 'User Unauthorized!')
   }
 
-
+  // logic -->
   const following = await Following.findOne({ user: currentUserId });
   if (following) {
     following.following = following.following.filter(userId => userId.toString() !== userToUnfollowId);
@@ -77,6 +77,7 @@ const getFollowerCountFromDB = async (userId: string) => {
   const follower = await Follower.findOne({ user: userId });
   return follower ? follower.followers.length : 0;
 };
+
 const getFollowingCountFromDB = async (userId: string) => {
   const following = await Following.findOne({ user: userId });
   return following ? following.following.length : 0;

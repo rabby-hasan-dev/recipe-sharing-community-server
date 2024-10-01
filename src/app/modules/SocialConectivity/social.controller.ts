@@ -7,10 +7,12 @@ import { SocailConectivityServices } from './social.service';
 // -------------- Rate Recpe section ---------
 
 const rateRecipe = catchAsync(async (req, res) => {
-  const data = req.body;
-  const { recipeId } = req.params;
+  const user = req?.user?.email;
+  const rating = req.body;
+  const { recipeId } = req.params
 
-  const result = await SocailConectivityServices.rateRecipeIntoDB(recipeId, data);
+
+  const result = await SocailConectivityServices.rateRecipeIntoDB(user, recipeId, rating);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -22,7 +24,6 @@ const rateRecipe = catchAsync(async (req, res) => {
 
 const getRecipeRatings = catchAsync(async (req, res) => {
   const { recipeId } = req.params;
-  console.log('insrecipeIde recipe ratting ==>>', recipeId)
 
   const result = await SocailConectivityServices.getRecipeRatingsFromDB(recipeId);
 
@@ -51,10 +52,11 @@ const getAvarageRecipeRatings = catchAsync(async (req, res) => {
 // -------------- Comment Recpe section ---------
 
 const postRecipeComment = catchAsync(async (req, res) => {
-  const data = req.body;
+  const userEmail = req.user.email;
+  const { comment } = req.body;
   const { recipeId } = req.params;
 
-  const result = await SocailConectivityServices.postRecipeCommentIntoDB(recipeId, data);
+  const result = await SocailConectivityServices.postRecipeCommentIntoDB(userEmail, recipeId, comment);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -79,8 +81,9 @@ const getRecipeComment = catchAsync(async (req, res) => {
 
 const editeRecipeComment = catchAsync(async (req, res) => {
   const { recipeId, commentId } = req.params;
+  const { comment } = req.body
 
-  const result = await SocailConectivityServices.editRecipeCommentFromDB(recipeId);
+  const result = await SocailConectivityServices.editRecipeCommentFromDB(recipeId, commentId, comment);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -93,7 +96,7 @@ const editeRecipeComment = catchAsync(async (req, res) => {
 const deleteRecipeComment = catchAsync(async (req, res) => {
   const { recipeId, commentId } = req.params;
 
-  const result = await SocailConectivityServices.deleteRecipeCommentFromDB(recipeId);
+  const result = await SocailConectivityServices.deleteRecipeCommentFromDB(recipeId, commentId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

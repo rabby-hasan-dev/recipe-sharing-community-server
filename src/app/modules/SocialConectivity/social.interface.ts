@@ -8,6 +8,7 @@ export interface IRating {
 }
 
 export interface IComment {
+    // _id?: Types.ObjectId;
     userId: Types.ObjectId;
     recipeId: Types.ObjectId;
     comment: string;
