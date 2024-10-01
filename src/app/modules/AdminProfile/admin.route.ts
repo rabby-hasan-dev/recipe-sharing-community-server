@@ -8,14 +8,14 @@ import { USER_ROLE } from '../../constant';
 const router = express.Router();
 
 //  Admin Controller
-router.patch('/profile/me', auth(USER_ROLE.admin), validateRequest(updateAdminValidationSchema), AdminControllers.updateAdmin,
-);
-router.get('/profile/me', auth(USER_ROLE.admin), AdminControllers.getAdminProfile);
 
-router.get('/', AdminControllers.getAllAdmins);
+router.get('/me', auth(USER_ROLE.admin), AdminControllers.getAdminProfile);
+router.patch('/me', auth(USER_ROLE.admin), validateRequest(updateAdminValidationSchema), AdminControllers.updateAdmin,
+)
+router.get('/', auth(USER_ROLE.admin), AdminControllers.getAllAdmins);
 router.delete('/:adminId', AdminControllers.deleteAdmin);
 
-// User and  Recipe  Controller 
+
 
 
 

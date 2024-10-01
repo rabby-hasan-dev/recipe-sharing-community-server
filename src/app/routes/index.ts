@@ -7,6 +7,7 @@ import { RecipeRoutes } from '../modules/Recipe/recipe.route';
 import { SocailConectivityRoutes } from '../modules/SocialConectivity/social.route';
 import { FeedRoutes } from '../modules/Feed/feed.route';
 import { PremiumRoutes } from '../modules/Premium/premium.route';
+import { FllowRoutes } from '../modules/Follow/follow.route';
 
 const router = Router();
 
@@ -42,6 +43,10 @@ const moduleRoutes = [
   {
     path: '/social-conectivity',
     route: SocailConectivityRoutes,
+  },
+  {
+    path: '/follow',
+    route: FllowRoutes,
   },
 ];
 

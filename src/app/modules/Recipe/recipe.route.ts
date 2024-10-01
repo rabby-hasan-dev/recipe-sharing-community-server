@@ -11,12 +11,10 @@ const router = express.Router();
 
 router.post('/', validateRequest(recipeValidator.RecipeValidationSchema), RecipeControllers.createRecipe);
 router.get('/', RecipeControllers.getAllRecipes);
-
 router.get('/:recipeId', RecipeControllers.getSingleRecipe);
 
 router.put('/:recipeId', RecipeControllers.updateRecipe,
 );
-
 router.delete('/:recipeId', RecipeControllers.deleteRecipe);
 
 export const RecipeRoutes = router;

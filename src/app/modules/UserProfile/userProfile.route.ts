@@ -13,9 +13,6 @@ router.put('/me', auth(USER_ROLE.user),
   validateRequest(updateUserValidationSchema),
   UserProfileControllers.UpdateMyProfile);
 router.get('/:userId', UserProfileControllers.getUserProfile);
-
-
-
-// router.get('/', UserProfileControllers.getAllUsers);
-// router.delete('/:id', auth(USER_ROLE.admin || USER_ROLE.user), UserProfileControllers.deleteUser);
+router.get('/', UserProfileControllers.getAllUsers);
+router.delete('/:id', auth(USER_ROLE.admin || USER_ROLE.user), UserProfileControllers.deleteUser);
 export const UserProfileRoutes = router;

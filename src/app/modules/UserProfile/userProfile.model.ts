@@ -46,18 +46,18 @@ const UserProfileSchema = new Schema<TUserProfile, UserProfileModel>(
       type: String,
       default: '',
     },
-    followers: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'UserProfile',
-      },
-    ],
-    following: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'UserProfile',
-      },
-    ],
+    // followers: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'UserProfile',
+    //   },
+    // ],
+    // following: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'UserProfile',
+    //   },
+    // ],
     premiumMembership: {
       type: Boolean,
       default: false,
@@ -131,6 +131,11 @@ UserProfileSchema.pre('aggregate', function (next) {
 //creating a custom static method
 UserProfileSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await UserProfile.findOne({ id });
+  return existingUser;
+};
+
+UserProfileSchema.statics.isUserEmailExists = async function (email: string) {
+  const existingUser = await UserProfile.findOne({ email });
   return existingUser;
 };
 
