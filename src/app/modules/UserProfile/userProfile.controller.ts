@@ -31,11 +31,9 @@ const UpdateMyProfile = catchAsync(async (req, res) => {
 });
 
 
-
-
-const getSingleUser = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await UserProfileServices.getSingleUserFromDB(id);
+const getUserProfile = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const result = await UserProfileServices.getUserProfileFromDB(userId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -45,36 +43,37 @@ const getSingleUser = catchAsync(async (req, res) => {
   });
 });
 
-const getAllUsers: RequestHandler = catchAsync(async (req, res) => {
-  const result = await UserProfileServices.getAllUsersFromDB(req.query);
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'User are retrieved succesfully',
-    meta: result.meta,
-    data: result.result,
-  });
-});
+// const getAllUsers: RequestHandler = catchAsync(async (req, res) => {
+//   const result = await UserProfileServices.getAllUsersFromDB(req.query);
+
+//   sendResponse(res, {
+//     statusCode: httpStatus.OK,
+//     success: true,
+//     message: 'User are retrieved succesfully',
+//     meta: result.meta,
+//     data: result.result,
+//   });
+// });
 
 
 
-const deleteUser = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await UserProfileServices.deleteUserFromDB(id);
+// const deleteUser = catchAsync(async (req, res) => {
+//   const { id } = req.params;
+//   const result = await UserProfileServices.deleteUserFromDB(id);
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'User is deleted succesfully',
-    data: result,
-  });
-});
+//   sendResponse(res, {
+//     statusCode: httpStatus.OK,
+//     success: true,
+//     message: 'User is deleted succesfully',
+//     data: result,
+//   });
+// });
 
 export const UserProfileControllers = {
   UpdateMyProfile,
   getMyProfile,
-  getAllUsers,
-  getSingleUser,
-  deleteUser,
+  // getAllUsers,
+  getUserProfile,
+  // deleteUser,
 };

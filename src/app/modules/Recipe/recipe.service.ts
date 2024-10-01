@@ -6,7 +6,7 @@ import { Recipe } from "./recipe.model";
 
 
 const getAllRecipeFromDB = async (query: Record<string, unknown>) => {
-  const UserQuery = new QueryBuilder(Recipe.find().populate('User'), query)
+  const UserQuery = new QueryBuilder(Recipe.find(), query)
     .search(UseSearchableFields)
     .filter()
     .sort()
@@ -38,6 +38,8 @@ const updateRecipeIntoDB = async (id: string, payload: Partial<IRecipe>) => {
     runValidators: true,
   });
   return result;
+
+
 };
 
 const deleteRecipeFromDB = async (id: string) => {

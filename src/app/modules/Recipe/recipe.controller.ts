@@ -17,8 +17,8 @@ const createRecipe = catchAsync(async (req, res) => {
   });
 });
 const getSingleRecipe = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await RecipeServices.getSingleRecipeFromDB(id);
+  const { recipeId } = req.params;
+  const result = await RecipeServices.getSingleRecipeFromDB(recipeId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -41,9 +41,9 @@ const getAllRecipes: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const updateRecipe = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const { RecipePayload } = req.body;
-  const result = await RecipeServices.updateRecipeIntoDB(id, RecipePayload);
+  const { recipeId } = req.params;
+  const recipeData = req.body;
+  const result = await RecipeServices.updateRecipeIntoDB(recipeId, recipeData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -54,8 +54,8 @@ const updateRecipe = catchAsync(async (req, res) => {
 });
 
 const deleteRecipe = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await RecipeServices.deleteRecipeFromDB(id);
+  const { recipeId } = req.params;
+  const result = await RecipeServices.deleteRecipeFromDB(recipeId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

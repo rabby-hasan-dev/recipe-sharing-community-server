@@ -1,20 +1,22 @@
 import express from 'express';
 
-// import validateRequest from '../../middlewares/validateRequest';
+
 import { RecipeControllers } from './recipe.controller';
+import validateRequest from '../../middlewares/validateRequest';
+import { recipeValidator } from './recipe.validation';
 
 
 
 const router = express.Router();
 
-router.post('/', RecipeControllers.createRecipe);
+router.post('/', validateRequest(recipeValidator.RecipeValidationSchema), RecipeControllers.createRecipe);
 router.get('/', RecipeControllers.getAllRecipes);
 
-router.get('/:id', RecipeControllers.getSingleRecipe);
+router.get('/:recipeId', RecipeControllers.getSingleRecipe);
 
-router.patch('/:id', RecipeControllers.updateRecipe,
+router.put('/:recipeId', RecipeControllers.updateRecipe,
 );
 
-router.delete('/:id', RecipeControllers.getAllRecipes);
+router.delete('/:recipeId', RecipeControllers.deleteRecipe);
 
 export const RecipeRoutes = router;

@@ -3,9 +3,9 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { AdminServices } from './admin.service';
 
-const getSingleAdmin = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await AdminServices.getSingleAdminFromDB(id);
+const getAdminProfile = catchAsync(async (req, res) => {
+  const { email, role } = req.user;
+  const result = await AdminServices.getAdminProfileFromDB(role, email);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -28,9 +28,9 @@ const getAllAdmins = catchAsync(async (req, res) => {
 });
 
 const updateAdmin = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const { admin } = req.body;
-  const result = await AdminServices.updateAdminIntoDB(id, admin);
+  const user = req.user;
+  const payload = req.body;
+  const result = await AdminServices.updateAdminIntoDB(user, payload);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -54,7 +54,7 @@ const deleteAdmin = catchAsync(async (req, res) => {
 
 export const AdminControllers = {
   getAllAdmins,
-  getSingleAdmin,
+  getAdminProfile,
   deleteAdmin,
   updateAdmin,
 };
