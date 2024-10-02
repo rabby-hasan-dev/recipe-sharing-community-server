@@ -12,8 +12,10 @@ export interface IRecipe {
     rating: number;
   }[];
   averageRating: number;
-  upvotes: Schema.Types.ObjectId[];
-  downvotes: Schema.Types.ObjectId[];
+  upVoteCount: number;
+  downVoteCount: number;
+  // upvotes: Schema.Types.ObjectId[];
+  // downvotes: Schema.Types.ObjectId[];
   comments: {
     user: Schema.Types.ObjectId;
     comment: string;

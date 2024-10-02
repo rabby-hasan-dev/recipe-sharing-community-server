@@ -48,18 +48,21 @@ const RecipeSchema = new Schema<IRecipe, RecipeModel>(
       type: Number,
       default: 0, // Auto-calculated average of ratings
     },
-    upvotes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User', // Reference to User who upvoted
-      },
-    ],
-    downvotes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User', // Reference to User who downvoted
-      },
-    ],
+
+    upVoteCount: { type: Number, default: 0 },
+    downVoteCount: { type: Number, default: 0 },
+    // upvotes: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User', // Reference to User who upvoted
+    //   },
+    // ],
+    // downvotes: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User', // Reference to User who downvoted
+    //   },
+    // ],
     comments: [
       // {
       //   user: {

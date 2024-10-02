@@ -111,8 +111,9 @@ const deleteRecipeComment = catchAsync(async (req, res) => {
 
 const upvoteRecipe = catchAsync(async (req, res) => {
   const { recipeId } = req.params;
+  const userEmail = req.user.email;
 
-  const result = await SocailConectivityServices.upvoteRecipeIntoDB(recipeId);
+  const result = await SocailConectivityServices.upvoteRecipeIntoDB(recipeId, userEmail);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -124,8 +125,8 @@ const upvoteRecipe = catchAsync(async (req, res) => {
 
 const downvoteRecipe = catchAsync(async (req, res) => {
   const { recipeId } = req.params;
-
-  const result = await SocailConectivityServices.downvoteRecipeIntoDB(recipeId);
+  const userEmail = req.user.email;
+  const result = await SocailConectivityServices.downvoteRecipeIntoDB(recipeId, userEmail);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
